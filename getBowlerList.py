@@ -1,36 +1,40 @@
+from calendar import c
+from itertools import count
 import sqlite3 as sql
-
-class Bowler:
-    def __init__(self,bowlerID,firstName,middleInitial,lastName,
-                 enteringAverage,enteringGames,bookAverage,bookGames):
-        self.bowlerID = bowlerID
-        self.firstName = firstName
-        self.middleInitial = middleInitial
-        self.lastName = lastName
-        self.enteringAverage = enteringAverage
-        self.enteringGames = enteringGames
-        self.bookAverage = bookAverage
-        self.bookGames = bookGames
+import datetime as dt
+from tkinter import E
+from createBowler import Bowler as B
 
 con = sql.connect("BLS.db")
 cur = con.cursor()
-bowlerList = []
-bowlerObjects = []
-bowlerQuery = cur.execute("select coalesce(bowlerID,0) as bowlerID, " +
-                          "coalesce(firstName,'') as firstName, " +
-                          "coalesce(middleInitial,'') as middleInitial, " +
-                          "coalesce(lastName,'') as firstName, " +
-                          "coalesce(enteringAverage,0) as enteringAverage, " +
-                          "coalesce(enteringGames,0) as enteringGames, " +
-                          "coalesce(bookAverage,0) as bookAverage, " +
-                          "coalesce(bookGames,0) bookGames from Bowler")
-bowlerDataset = bowlerQuery.fetchall()
+query = cur.execute("select coalesce(BowlerID,0) as BowlerID, " + 
+                    "coalesce(FirstName,'') as FirstName, " +
+                    "coalesce(MiddleInitial,'') as MiddleInitial, " +
+                    "coalesce(LastName,'') as LastName, " +
+                    "coalesce(Suffix,'') as Suffix, " +
+                    "coalesce(BookAverage,0) as BookAverage, " +
+                    "coalesce(BookGames,0) as BookGames, " +
+                    "coalesce(EnteringAverage,0) as EnteringAverage, " +
+                    "coalesce(EnteringGames,0) as EnteringGames from Bowler")
+res = query.fetchall()
 
-for bowler in bowlerDataset:
-    bowlerList.append(bowler)
-    bowlerObjects.append(Bowler(bowler[0],bowler[1],bowler[2],bowler[3],
-                                bowler[4],bowler[5],bowler[6],bowler[7]))
+counter = 0
+bowler_List = []
+
+for items in res:
+    Bowler_ID, First_Name, Middle_Initial, Last_Name, Suffix, Book_Average, Book_Games, Entering_Average, Entering_Games = items
+    bowler_List.append(B(Bowler_ID))
+    bowler_List[counter].set_bowler_first_name(First_Name)
+    bowler_List[counter].set_bowler_middle_initial(Middle_Initial)
+    bowler_List[counter].set_bowler_last_name(Last_Name)
+    bowler_List[counter].set_bowler_suffix(Suffix)
+    bowler_List[counter].set_bowler_book_average(Book_Average)
+    bowler_List[counter].set_bowler_book_games(Book_Games)
+    bowler_List[counter].set_bowler_entering_average(Entering_Average)
+    bowler_List[counter].set_bowler_entering_games(Entering_Games)
+    counter += 1
+
+for bowlers in bowler_List:
+    print(bowlers.last_name)
 
 con.close()    
-
-print(bowlerObjects[0].lastName)

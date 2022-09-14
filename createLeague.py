@@ -38,14 +38,14 @@ class League:
     def set_establish_weeks(self,avg_weeks):
         self.avg_weeks = avg_weeks
 
-    def set_points_per_game_team(self,TeamGamePoints):
-        self.TeamGamePoints = TeamGamePoints
+    def set_points_per_game_team(self,Team_Game_Points):
+        self.Team_Game_Points = Team_Game_Points
 
-    def set_points_for_totals_team(self,TeamSeriesPoints):
-        self.TeamSeriesPoints = TeamSeriesPoints
+    def set_points_for_totals_team(self,Team_Series_Points):
+        self.Team_Series_Points = Team_Series_Points
 
-    def set_points_for_indv_match_game(self,IndvGameMatchPoints):
-        self.IndvGameMatchPoints = IndvGameMatchPoints
+    def set_points_for_indv_match_game(self,Indv_Game_Match_Points):
+        self.Indv_Game_Match_Points = Indv_Game_Match_Points
 
-    def set_points_for_indv_match_series(self,IndvSeriesMatchPoints):
-        self.IndvSeriesMatchPoints = IndvSeriesMatchPoints
+    def set_points_for_indv_match_series(self,Indv_Series_Match_Points):
+        self.Indv_Series_Match_Points = Indv_Series_Match_Points
